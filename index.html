@@ -511,14 +511,14 @@
       color: var(--gold-warm);
       text-shadow: 0 2px 14px rgba(255, 77, 121, 0.9), 0 0 8px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
-      animation: popUpFade 4.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: popUpFade 8.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes popUpFade {
       0% { opacity: 0; transform: translate(-50%, 6px) scale(0.5); }
-      10% { opacity: 1; transform: translate(-50%, -26px) scale(1.1); }
-      82% { opacity: 1; transform: translate(-50%, -52px) scale(1.03); }
-      100% { opacity: 0; transform: translate(-50%, -80px) scale(0.92); }
+      6% { opacity: 1; transform: translate(-50%, -26px) scale(1.1); }
+      88% { opacity: 1; transform: translate(-50%, -56px) scale(1.04); }
+      100% { opacity: 0; transform: translate(-50%, -84px) scale(0.92); }
     }
   </style>
 </head>
@@ -1048,7 +1048,7 @@
       const y = clientY || window.innerHeight * 0.35;
       spawnHeartBurst(x, y, 16);
 
-      // Pop floating romantic text (visible for 4 full seconds, then gently fades out)
+      // Pop floating romantic text (visible for 8 full seconds, then gently fades out)
       const pop = document.createElement('div');
       pop.className = 'pop-love';
       pop.textContent = sweetPopPhrases[phraseIdx % sweetPopPhrases.length];
@@ -1056,7 +1056,7 @@
       pop.style.left = `${x}px`;
       pop.style.top = `${y}px`;
       document.body.appendChild(pop);
-      setTimeout(() => pop.remove(), 4400);
+      setTimeout(() => pop.remove(), 8500);
 
       // Bear excited hug bounce
       gsap.fromTo('#bear-svg',
