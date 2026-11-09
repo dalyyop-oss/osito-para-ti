@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#140710" />
+  <title>Para ti, mi amor ❤️ — Ánimo, no estés triste</title>
+  <meta name="description" content="Ánimo, no estés triste, me tienes a mí. Te amo ❤️" />
+  <meta property="og:title" content="Para ti, mi amor ❤️" />
+  <meta property="og:description" content="Ánimo, no estés triste, me tienes a mí. Te amo ❤️ (Toca para abrir tu sorpresa con música)" />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP for ultra-smooth 60fps Motion Graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --bg-deep: #11050C;
+      --bg-crimson: #2A0919;
+      --bg-rose: #461128;
+      --rose-primary: #FF4D79;
+      --rose-soft: #FF8FA3;
+      --rose-blush: #FFB3C1;
+      --gold-warm: #FFD166;
+      --gold-glow: #FFE599;
+      --cream: #FFF8F6;
+      --glass-bg: rgba(42, 9, 25, 0.58);
+      --glass-border: rgba(255, 179, 193, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg-deep);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--cream);
+      position: fixed;
+      inset: 0;
+    }
+
+    /* Ambient animated background */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255, 77, 121, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 179, 193, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 20% 75%, rgba(255, 209, 102, 0.1) 0%, transparent 45%),
+        linear-gradient(165deg, #11050C 0%, #240715 48%, #380B20 100%);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { filter: brightness(0.95) saturate(1); }
+      100% { filter: brightness(1.08) saturate(1.15); }
+    }
+
+    /* Fullscreen Particle & Heart Canvas */
+    #magic-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Soft Romantic Vignette & Film Glow */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      box-shadow: inset 0 0 90px rgba(8, 2, 5, 0.85);
+    }
+
+    /* Main Mobile Stage Container */
+    .stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 460px;
+      height: 100dvh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: max(16px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+    }
+
+    /* Top Romantic Header Pill */
+    .top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 179, 193, 0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose-blush);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose-primary);
+      box-shadow: 0 0 10px var(--rose-primary);
+      animation: dotBeat 1.2s infinite ease-in-out;
+    }
+
+    @keyframes dotBeat {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.45); opacity: 1; }
+    }
+
+    /* Bear Illustration Stage */
+    .bear-showcase {
+      position: relative;
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 210px;
+      max-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .bear-halo {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 77, 121, 0.34) 0%, rgba(255, 209, 102, 0.12) 45%, transparent 72%);
+      filter: blur(18px);
+      animation: haloBreath 4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes haloBreath {
+      0% { transform: scale(0.92); opacity: 0.7; }
+      100% { transform: scale(1.12); opacity: 1; }
+    }
+
+    .bear-svg {
+      width: 100%;
+      height: 100%;
+      max-width: 280px;
+      max-height: 295px;
+      overflow: visible;
+      filter: drop-shadow(0 16px 32px rgba(10, 2, 6, 0.65));
+    }
+
+    /* Interactive tap hint near bear */
+    .hug-badge {
+      position: absolute;
+      bottom: 4px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: rgba(255, 77, 121, 0.18);
+      border: 1px solid rgba(255, 179, 193, 0.3);
+      font-size: 0.72rem;
+      color: var(--rose-blush);
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* Romantic Message Glass Card */
+    .message-card {
+      position: relative;
+      width: 100%;
+      padding: 18px 20px 16px;
+      border-radius: 26px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 20px 50px rgba(5, 0, 3, 0.65),
+        inset 0 1px 1px rgba(255, 255, 255, 0.18);
+      text-align: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .message-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 179, 193, 0.15), transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Main Phrase Typography */
+    .line-animo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.65rem, 6.3vw, 2.15rem);
+      line-height: 1.15;
+      color: var(--cream);
+      text-shadow: 0 2px 16px rgba(255, 77, 121, 0.45);
+      margin-bottom: 6px;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .line-metienes {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.98rem, 3.9vw, 1.14rem);
+      color: var(--rose-blush);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .line-metienes strong {
+      color: var(--gold-warm);
+      font-weight: 700;
+      text-shadow: 0 0 14px rgba(255, 209, 102, 0.45);
+    }
+
+    .line-teamo {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.55rem, 10.5vw, 3.35rem);
+      line-height: 1.08;
+      background: linear-gradient(135deg, #FFF5F7 0%, #FF8FA3 45%, #FF4D79 80%, #FFD166 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(255, 77, 121, 0.5));
+      margin-top: 2px;
+      opacity: 0;
+      transform: scale(0.82);
+    }
+
+    /* Synchronized Lyrics Ribbon */
+    .lyrics-box {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 179, 193, 0.16);
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lyric-en {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: rgba(255, 248, 246, 0.88);
+      letter-spacing: 0.03em;
+      transition: all 0.4s ease;
+    }
+
+    .lyric-es {
+      font-size: 0.7rem;
+      color: var(--gold-warm);
+      opacity: 0.85;
+      margin-top: 2px;
+      transition: all 0.4s ease;
+    }
+
+    /* Soundtrack Player Bar */
+    .music-bar {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 20px;
+      background: rgba(22, 5, 14, 0.72);
+      border: 1px solid rgba(255, 179, 193, 0.22);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex-shrink: 0;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .play-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--rose-primary), #D92659);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(255, 77, 121, 0.6);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .play-btn:active {
+      transform: scale(0.9);
+    }
+
+    .track-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .track-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .track-name {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-time {
+      font-size: 0.68rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--rose-soft);
+      flex-shrink: 0;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--rose-soft), var(--rose-primary), var(--gold-warm));
+      box-shadow: 0 0 10px var(--rose-primary);
+      transition: width 0.15s linear;
+    }
+
+    /* Animated Equalizer Bars */
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .eq-bar {
+      width: 3px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--rose-primary);
+      transition: height 0.15s ease;
+    }
+
+    .eq-bars.playing .eq-bar:nth-child(1) { animation: eqAnim 0.55s ease-in-out infinite alternate; }
+    .eq-bars.playing .eq-bar:nth-child(2) { animation: eqAnim 0.4s ease-in-out infinite alternate 0.15s; background: var(--gold-warm); }
+    .eq-bars.playing .eq-bar:nth-child(3) { animation: eqAnim 0.65s ease-in-out infinite alternate 0.3s; }
+    .eq-bars.playing .eq-bar:nth-child(4) { animation: eqAnim 0.48s ease-in-out infinite alternate 0.08s; background: var(--rose-soft); }
+
+    @keyframes eqAnim {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
+
+    /* Welcome Intro Curtain (Guarantees Mobile Audio + Bear Opening) */
+    .intro-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255, 77, 121, 0.28) 0%, transparent 60%),
+        linear-gradient(170deg, #12040C 0%, #260817 60%, #14050D 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      text-align: center;
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.75s;
+    }
+
+    .intro-curtain.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-bear-preview {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 12px 28px rgba(255, 77, 121, 0.4));
+      animation: floatPreview 2.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatPreview {
+      0% { transform: translateY(0px) rotate(-2deg); }
+      100% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .intro-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gold-warm);
+      margin-bottom: 8px;
+    }
+
+    .intro-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .intro-sub {
+      font-size: 0.9rem;
+      color: var(--rose-blush);
+      max-width: 280px;
+      line-height: 1.45;
+      margin-bottom: 26px;
+    }
+
+    .open-gift-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 229, 153, 0.5);
+      background: linear-gradient(135deg, #FF4D79 0%, #D92659 55%, #9E143B 100%);
+      color: #FFF;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow:
+        0 12px 32px rgba(255, 77, 121, 0.55),
+        0 0 0 0 rgba(255, 77, 121, 0.7);
+      animation: btnHeartbeat 1.8s infinite;
+    }
+
+    @keyframes btnHeartbeat {
+      0% { transform: scale(1); box-shadow: 0 12px 32px rgba(255, 77, 121, 0.55), 0 0 0 0 rgba(255, 77, 121, 0.65); }
+      50% { transform: scale(1.05); box-shadow: 0 16px 38px rgba(255, 77, 121, 0.75), 0 0 0 14px rgba(255, 77, 121, 0); }
+      100% { transform: scale(1); box-shadow: 0 12px 32px rgba(255, 77, 121, 0.55), 0 0 0 0 rgba(255, 77, 121, 0); }
+    }
+
+    .intro-music-note {
+      margin-top: 18px;
+      font-size: 0.74rem;
+      color: rgba(255, 179, 193, 0.72);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Floating Pop Words on Tap */
+    .pop-love {
+      position: fixed;
+      pointer-events: none;
+      z-index: 50;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.9rem;
+      color: var(--gold-warm);
+      text-shadow: 0 2px 12px rgba(255, 77, 121, 0.85);
+      animation: popUpFade 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes popUpFade {
+      0% { opacity: 0; transform: translate(-50%, 0) scale(0.5); }
+      25% { opacity: 1; transform: translate(-50%, -22px) scale(1.1); }
+      100% { opacity: 0; transform: translate(-50%, -70px) scale(0.9); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Romantic Background -->
+  <div class="ambient-bg"></div>
+  <canvas id="magic-canvas"></canvas>
+  <div class="vignette"></div>
+
+  <!-- Hidden HTML5 Audio with exact 1:04 - 1:29 fragment of System Of A Down - Lonely Day -->
+  <audio id="bg-audio" src="lonely_day_104_129.mp3" preload="auto" loop playsinline></audio>
+
+  <!-- Opening Curtain with Cute Bear so mobile browsers unlock audio at full quality -->
+  <div class="intro-curtain" id="intro-curtain">
+    <svg class="intro-bear-preview" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="previewFur" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#E6A972"/>
+          <stop offset="70%" stop-color="#C67D43"/>
+          <stop offset="100%" stop-color="#9C5A25"/>
+        </radialGradient>
+        <linearGradient id="previewHeart" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF7597"/>
+          <stop offset="50%" stop-color="#FF2A6D"/>
+          <stop offset="100%" stop-color="#B80D48"/>
+        </linearGradient>
+      </defs>
+      <!-- Ears -->
+      <circle cx="58" cy="54" r="26" fill="url(#previewFur)" />
+      <circle cx="58" cy="54" r="14" fill="#F4C7A1" />
+      <circle cx="162" cy="54" r="26" fill="url(#previewFur)" />
+      <circle cx="162" cy="54" r="14" fill="#F4C7A1" />
+      <!-- Head -->
+      <ellipse cx="110" cy="105" rx="68" ry="60" fill="url(#previewFur)" />
+      <!-- Blush -->
+      <ellipse cx="68" cy="116" rx="14" ry="8" fill="#FF5C8A" opacity="0.55" />
+      <ellipse cx="152" cy="116" rx="14" ry="8" fill="#FF5C8A" opacity="0.55" />
+      <!-- Snout -->
+      <ellipse cx="110" cy="117" rx="26" ry="20" fill="#F9DEC9" />
+      <ellipse cx="110" cy="109" rx="10" ry="7" fill="#4A2511" />
+      <path d="M110 116 L110 124 M102 124 Q110 130 118 124" stroke="#4A2511" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <!-- Eyes -->
+      <circle cx="82" cy="96" r="7.5" fill="#2B1206" />
+      <circle cx="80" cy="93.5" r="2.5" fill="#FFF" />
+      <circle cx="138" cy="96" r="7.5" fill="#2B1206" />
+      <circle cx="136" cy="93.5" r="2.5" fill="#FFF" />
+      <!-- Glowing Heart Held in Paws -->
+      <path d="M110 198 C110 198 62 166 62 138 C62 121 76 112 91 112 C101 112 107 118 110 124 C113 118 119 112 129 112 C144 112 158 121 158 138 C158 166 110 198 110 198 Z" fill="url(#previewHeart)" />
+      <!-- Paws holding heart -->
+      <ellipse cx="70" cy="155" rx="18" ry="14" transform="rotate(-20 70 155)" fill="url(#previewFur)" />
+      <ellipse cx="150" cy="155" rx="18" ry="14" transform="rotate(20 150 155)" fill="url(#previewFur)" />
+    </svg>
+
+    <div class="intro-tag">✨ Un abrazo para tu corazón ✨</div>
+    <h1 class="intro-title">Hola, mi amor...</h1>
+    <p class="intro-sub">Este osito trae un mensaje muy especial para ti. Sube el volumen de tu teléfono y tócalo.</p>
+
+    <button class="open-gift-btn" id="start-btn">
+      <span>❤️ Abrir mi mensaje</span>
+    </button>
+
+    <div class="intro-music-note">
+      <span>🎵 Incluye "Lonely Day" (1:04 - 1:29)</span>
+    </div>
+  </div>
+
+  <!-- Main Interactive Motion Graphics Stage -->
+  <main class="stage" id="main-stage">
+    <div class="top-pill">
+      <span class="pulse-dot"></span>
+      <span>Siempre contigo • En cada momento</span>
+    </div>
+
+    <!-- Animated Vector Teddy Bear -->
+    <div class="bear-showcase" id="bear-touch-area" title="Tócame para enviarte más amor">
+      <div class="bear-halo" id="bear-halo"></div>
+
+      <svg class="bear-svg" id="bear-svg" viewBox="0 0 320 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Plush Fur Gradients -->
+          <radialGradient id="furHead" cx="48%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#ECC89E" />
+            <stop offset="55%" stop-color="#CFA77B" />
+            <stop offset="100%" stop-color="#A67A4B" />
+          </radialGradient>
+          <radialGradient id="furBody" cx="50%" cy="40%" r="65%">
+            <stop offset="0%" stop-color="#E5BC90" />
+            <stop offset="65%" stop-color="#C49668" />
+            <stop offset="100%" stop-color="#9A6D42" />
+          </radialGradient>
+          <radialGradient id="furDark" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#B8895C" />
+            <stop offset="100%" stop-color="#8A5F36" />
+          </radialGradient>
+          <radialGradient id="snoutGrad" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#FFF3E6" />
+            <stop offset="100%" stop-color="#F2D5B8" />
+          </radialGradient>
+          <linearGradient id="heartMain" x1="15%" y1="10%" x2="85%" y2="90%">
+            <stop offset="0%" stop-color="#FF8DA8" />
+            <stop offset="45%" stop-color="#FF2E63" />
+            <stop offset="100%" stop-color="#A80B3A" />
+          </linearGradient>
+          <radialGradient id="cheeksGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FF477E" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#FF477E" stop-opacity="0" />
+          </radialGradient>
+          <filter id="heartGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <!-- Ground Soft Shadow -->
+        <ellipse cx="160" cy="316" rx="88" ry="14" fill="rgba(5, 0, 3, 0.55)" />
+
+        <!-- Whole Bear Group -->
+        <g id="bear-whole">
+          <!-- Sitting Legs / Feet -->
+          <g id="bear-feet">
+            <!-- Left Foot -->
+            <ellipse cx="102" cy="292" rx="34" ry="26" transform="rotate(-12 102 292)" fill="url(#furDark)" />
+            <ellipse cx="100" cy="294" rx="20" ry="15" transform="rotate(-12 100 294)" fill="#F5D7BC" />
+            <circle cx="90" cy="282" r="4.5" fill="#E3B896" />
+            <circle cx="101" cy="279" r="4.5" fill="#E3B896" />
+            <circle cx="111" cy="283" r="4.5" fill="#E3B896" />
+
+            <!-- Right Foot -->
+            <ellipse cx="218" cy="292" rx="34" ry="26" transform="rotate(12 218 292)" fill="url(#furDark)" />
+            <ellipse cx="220" cy="294" rx="20" ry="15" transform="rotate(12 220 294)" fill="#F5D7BC" />
+            <circle cx="209" cy="283" r="4.5" fill="#E3B896" />
+            <circle cx="219" cy="279" r="4.5" fill="#E3B896" />
+            <circle cx="230" cy="282" r="4.5" fill="#E3B896" />
+          </g>
+
+          <!-- Chubby Torso -->
+          <g id="bear-torso">
+            <ellipse cx="160" cy="236" rx="72" ry="68" fill="url(#furBody)" />
+            <ellipse cx="160" cy="242" rx="46" ry="44" fill="#F7DEC6" opacity="0.65" />
+            <!-- Cute Stitch Line on Belly -->
+            <path d="M160 205 L160 278" stroke="#B6865A" stroke-width="1.8" stroke-dasharray="4 4" opacity="0.6" />
+          </g>
+
+          <!-- Bear Head Group (Tilts & Nods with GSAP) -->
+          <g id="bear-head-group" style="transform-origin: 160px 155px;">
+            <!-- Left Ear -->
+            <g id="ear-left" style="transform-origin: 96px 76px;">
+              <circle cx="86" cy="64" r="32" fill="url(#furDark)" />
+              <circle cx="86" cy="64" r="18" fill="#F5D5B8" />
+            </g>
+
+            <!-- Right Ear -->
+            <g id="ear-right" style="transform-origin: 224px 76px;">
+              <circle cx="234" cy="64" r="32" fill="url(#furDark)" />
+              <circle cx="234" cy="64" r="18" fill="#F5D5B8" />
+            </g>
+
+            <!-- Main Plush Head -->
+            <ellipse cx="160" cy="118" rx="84" ry="74" fill="url(#furHead)" />
+
+            <!-- Cute Forehead Stitch -->
+            <path d="M160 52 L160 72 M155 58 L165 58 M156 66 L164 66" stroke="#9B6E43" stroke-width="2" stroke-linecap="round" opacity="0.55" />
+
+            <!-- Rosy Romantic Cheeks -->
+            <circle id="cheek-left" cx="98" cy="134" r="24" fill="url(#cheeksGrad)" />
+            <circle id="cheek-right" cx="222" cy="134" r="24" fill="url(#cheeksGrad)" />
+
+            <!-- Expressive Eyebrows -->
+            <path id="brow-left" d="M108 86 Q122 78 134 84" stroke="#6E4726" stroke-width="3.5" stroke-linecap="round" fill="none" />
+            <path id="brow-right" d="M186 84 Q198 78 212 86" stroke="#6E4726" stroke-width="3.5" stroke-linecap="round" fill="none" />
+
+            <!-- Eyes (Blink via scaleY) -->
+            <g id="eyes-group" style="transform-origin: 160px 108px;">
+              <!-- Left Eye -->
+              <circle cx="122" cy="108" r="9.5" fill="#2A1205" />
+              <circle cx="119" cy="104.5" r="3.4" fill="#FFFFFF" />
+              <circle cx="125" cy="111" r="1.6" fill="#FFFFFF" opacity="0.8" />
+
+              <!-- Right Eye -->
+              <circle cx="198" cy="108" r="9.5" fill="#2A1205" />
+              <circle cx="195" cy="104.5" r="3.4" fill="#FFFFFF" />
+              <circle cx="201" cy="111" r="1.6" fill="#FFFFFF" opacity="0.8" />
+            </g>
+
+            <!-- Soft Cream Snout -->
+            <ellipse cx="160" cy="134" rx="34" ry="26" fill="url(#snoutGrad)" />
+
+            <!-- Heart-Shaped Chocolate Nose -->
+            <path d="M160 128 C160 128 147 120 147 114 C147 110 151 108 155 108 C158 108 159.5 110 160 111.5 C160.5 110 162 108 165 108 C169 108 173 110 173 114 C173 120 160 128 160 128 Z" fill="#4A2311" />
+            <ellipse cx="156" cy="112" rx="4" ry="2" fill="#FFF" opacity="0.35" />
+
+            <!-- Warm Comforting Smile -->
+            <path id="bear-smile" d="M160 127 L160 138 M147 137 Q160 148 173 137" stroke="#4A2311" stroke-width="3.5" stroke-linecap="round" fill="none" />
+          </g>
+
+          <!-- Big Glowing Romantic Heart Held by the Bear -->
+          <g id="held-heart" style="transform-origin: 160px 225px;" filter="url(#heartGlow)">
+            <path d="M160 282 C160 282 95 238 95 196 C95 172 114 156 135 156 C148 156 156 164 160 173 C164 164 172 156 185 156 C206 156 225 172 225 196 C225 238 160 282 160 282 Z" fill="url(#heartMain)" />
+            <!-- Heart Specular Shine -->
+            <path d="M114 186 C114 174 124 167 134 167" stroke="rgba(255,255,255,0.55)" stroke-width="5" stroke-linecap="round" fill="none" />
+            <!-- Tiny Heart Sparkle -->
+            <text x="160" y="218" text-anchor="middle" fill="#FFF5F7" font-family="'Great Vibes', cursive" font-size="28" opacity="0.92">Te amo</text>
+          </g>
+
+          <!-- Bear Paws Hugging the Heart -->
+          <g id="arm-left" style="transform-origin: 96px 195px;">
+            <ellipse cx="102" cy="212" rx="30" ry="20" transform="rotate(24 102 212)" fill="url(#furHead)" />
+            <ellipse cx="114" cy="218" rx="12" ry="10" fill="#F5D5B8" opacity="0.8" />
+          </g>
+          <g id="arm-right" style="transform-origin: 224px 195px;">
+            <ellipse cx="218" cy="212" rx="30" ry="20" transform="rotate(-24 218 212)" fill="url(#furHead)" />
+            <ellipse cx="206" cy="218" rx="12" ry="10" fill="#F5D5B8" opacity="0.8" />
+          </g>
+        </g>
+
+        <!-- Floating Mini SVG Hearts Around Bear -->
+        <g id="mini-hearts">
+          <path class="float-mini" d="M65 110 C65 110 50 100 50 90 C50 84 55 80 60 80 C63 80 64.5 82 65 84 C65.5 82 67 80 70 80 C75 80 80 84 80 90 C80 100 65 110 65 110 Z" fill="#FF6B8B" opacity="0.85" />
+          <path class="float-mini" d="M262 96 C262 96 250 88 250 80 C250 75 254 72 258 72 C260 72 261.5 73.5 262 75 C262.5 73.5 264 72 266 72 C270 72 274 75 274 80 C274 88 262 96 262 96 Z" fill="#FFD166" opacity="0.85" />
+          <path class="float-mini" d="M254 172 C254 172 244 165 244 158 C244 154 247 151 251 151 C253 151 253.5 152 254 153.5 C254.5 152 255 151 257 151 C261 151 264 154 264 158 C264 165 254 172 254 172 Z" fill="#FF8FA3" opacity="0.75" />
+        </g>
+      </svg>
+
+      <div class="hug-badge" id="hug-badge">✨ Toca al osito para recibir un abrazo ✨</div>
+    </div>
+
+    <!-- Main Romantic Message Card -->
+    <section class="message-card" id="message-card">
+      <h2 class="line-animo" id="line-1">“Ánimo, no estés triste,</h2>
+      <p class="line-metienes" id="line-2">me tienes a mí... <strong>siempre contigo</strong></p>
+      <div class="line-teamo" id="line-3">Te amo ❤️”</div>
+
+      <!-- Synchronized Lyrics Display for Lonely Day (1:04 - 1:29) -->
+      <div class="lyrics-box">
+        <div class="lyric-en" id="lyric-en">♪ Such a lonely day, and it's mine... ♪</div>
+        <div class="lyric-es" id="lyric-es">Pero jamás estarás en soledad mientras me tengas a mí ❤️</div>
+      </div>
+    </section>
+
+    <!-- Bottom Audio Bar: System Of A Down - Lonely Day (1:04 - 1:29) -->
+    <div class="music-bar">
+      <button class="play-btn" id="play-toggle" aria-label="Pausar o reproducir canción">
+        <svg id="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="6" y="4" width="4" height="16" rx="1.5" />
+          <rect x="14" y="4" width="4" height="16" rx="1.5" />
+        </svg>
+        <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
+
+      <div class="track-info">
+        <div class="track-title-row">
+          <span class="track-name">System Of A Down — Lonely Day</span>
+          <span class="track-time" id="track-time">1:04 / 1:29</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="eq-bars" id="eq-bars">
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. ROMANTIC PARTICLE & FLOATING HEART ENGINE (60FPS CANVAS)
+    // =========================================================================
+    const canvas = document.getElementById('magic-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let burstHearts = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class AmbientParticle {
+      constructor() {
+        this.reset(true);
+      }
+      reset(initial = false) {
+        this.x = Math.random() * window.innerWidth;
+        this.y = initial ? Math.random() * window.innerHeight : window.innerHeight + 20;
+        this.size = Math.random() * 10 + 5;
+        this.speedY = -(Math.random() * 0.65 + 0.25);
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+        this.opacity = Math.random() * 0.55 + 0.15;
+        this.isHeart = Math.random() > 0.35;
+        const colors = ['#FF4D79', '#FF8FA3', '#FFD166', '#FFB3C1', '#FFF0F3'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.y += this.speedY;
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.45 + this.speedX;
+        if (this.y < -30) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        if (this.isHeart) {
+          drawHeartPath(ctx, this.x, this.y, this.size);
+        } else {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 0.25, 0, Math.PI * 2);
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = this.color;
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    function drawHeartPath(context, x, y, size) {
+      context.save();
+      context.translate(x, y);
+      context.beginPath();
+      const topCurveHeight = size * 0.3;
+      context.moveTo(0, topCurveHeight);
+      context.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
+      context.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, (size + topCurveHeight) / 1.4, 0, size);
+      context.bezierCurveTo(0, (size + topCurveHeight) / 1.4, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
+      context.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
+      context.closePath();
+      context.fill();
+      context.restore();
+    }
+
+    for (let i = 0; i < 38; i++) {
+      particles.push(new AmbientParticle());
+    }
+
+    function spawnHeartBurst(x, y, count = 14) {
+      const colors = ['#FF2E63', '#FF8FA3', '#FFD166', '#FFF0F3', '#FF4D79'];
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const speed = Math.random() * 4.2 + 1.8;
+        burstHearts.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 1.8,
+          size: Math.random() * 14 + 8,
+          alpha: 1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) {
+        p.update();
+        p.draw();
+      }
+      for (let i = burstHearts.length - 1; i >= 0; i--) {
+        const b = burstHearts[i];
+        b.x += b.vx;
+        b.y += b.vy;
+        b.vy += 0.07; // gentle gravity
+        b.alpha -= 0.018;
+        if (b.alpha <= 0) {
+          burstHearts.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, b.alpha);
+        ctx.fillStyle = b.color;
+        drawHeartPath(ctx, b.x, b.y, b.size);
+        ctx.restore();
+      }
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    // =========================================================================
+    // 2. GSAP MOTION GRAPHICS FOR THE TEDDY BEAR & ROMANTIC TYPOGRAPHY
+    // =========================================================================
+    function startIdleBearAnimations() {
+      // Gentle breathing & floating of the bear
+      gsap.to('#bear-whole', {
+        y: -7,
+        duration: 2.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Head affectionate tilt
+      gsap.to('#bear-head-group', {
+        rotation: 4.5,
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Ears wiggle
+      gsap.to('#ear-left', {
+        rotation: -8,
+        duration: 1.9,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+      gsap.to('#ear-right', {
+        rotation: 8,
+        duration: 1.9,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 0.3
+      });
+
+      // Heartbeat pulse on the held heart
+      gsap.to('#held-heart', {
+        scale: 1.11,
+        duration: 0.62,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut'
+      });
+
+      // Paws gently squeezing the heart
+      gsap.to('#arm-left', {
+        rotation: -6,
+        x: 3,
+        duration: 1.24,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+      gsap.to('#arm-right', {
+        rotation: 6,
+        x: -3,
+        duration: 1.24,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Floating mini hearts around bear
+      gsap.to('.float-mini', {
+        y: -14,
+        scale: 1.15,
+        duration: 1.8,
+        stagger: 0.35,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Natural blinking loop
+      function blinkLoop() {
+        gsap.to('#eyes-group', {
+          scaleY: 0.08,
+          duration: 0.11,
+          yoyo: true,
+          repeat: 1,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            gsap.delayedCall(Math.random() * 3.2 + 2.0, blinkLoop);
+          }
+        });
+      }
+      gsap.delayedCall(2.0, blinkLoop);
+    }
+
+    function playEntranceChoreography() {
+      const tl = gsap.timeline({ defaults: { ease: 'back.out(1.6)' } });
+
+      tl.fromTo('#bear-svg',
+        { scale: 0.4, opacity: 0, y: 40 },
+        { scale: 1, opacity: 1, y: 0, duration: 1.1 }
+      )
+      .to('#line-1', {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power3.out'
+      }, '-=0.45')
+      .to('#line-2', {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power3.out'
+      }, '-=0.55')
+      .to('#line-3', {
+        opacity: 1,
+        scale: 1,
+        duration: 1.1,
+        ease: 'elastic.out(1, 0.55)',
+        onStart: () => {
+          const rect = document.getElementById('line-3').getBoundingClientRect();
+          spawnHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 18);
+        }
+      }, '-=0.35')
+      .to('#hug-badge', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.4');
+    }
+
+    // Interactive Bear Hug when user taps the bear or screen
+    const sweetPopPhrases = ['¡Te amo! ❤️', 'Aquí estoy contigo 🤗', 'Ánimo mi vida ✨', 'Eres mi todo 💖', 'No estés triste 🧸'];
+    let phraseIdx = 0;
+
+    function triggerBearHug(clientX, clientY) {
+      const x = clientX || window.innerWidth / 2;
+      const y = clientY || window.innerHeight * 0.35;
+      spawnHeartBurst(x, y, 16);
+
+      // Pop floating romantic text
+      const pop = document.createElement('div');
+      pop.className = 'pop-love';
+      pop.textContent = sweetPopPhrases[phraseIdx % sweetPopPhrases.length];
+      phraseIdx++;
+      pop.style.left = `${x}px`;
+      pop.style.top = `${y}px`;
+      document.body.appendChild(pop);
+      setTimeout(() => pop.remove(), 1400);
+
+      // Bear excited hug bounce
+      gsap.fromTo('#bear-svg',
+        { scale: 0.92 },
+        { scale: 1.06, duration: 0.22, yoyo: true, repeat: 1, ease: 'power2.out' }
+      );
+      gsap.fromTo('#cheek-left, #cheek-right',
+        { opacity: 0.6, scale: 1 },
+        { opacity: 1, scale: 1.3, duration: 0.35, yoyo: true, repeat: 1 }
+      );
+    }
+
+    document.getElementById('bear-touch-area').addEventListener('pointerdown', (e) => {
+      triggerBearHug(e.clientX, e.clientY);
+    });
+
+    document.getElementById('message-card').addEventListener('pointerdown', (e) => {
+      spawnHeartBurst(e.clientX, e.clientY, 10);
+    });
+
+    // =========================================================================
+    // 3. AUDIO CONTROLLER & SYNCHRONIZED LYRICS (LONELY DAY 1:04 - 1:29)
+    // =========================================================================
+    const audio = document.getElementById('bg-audio');
+    const playToggle = document.getElementById('play-toggle');
+    const iconPause = document.getElementById('icon-pause');
+    const iconPlay = document.getElementById('icon-play');
+    const progressFill = document.getElementById('progress-fill');
+    const trackTime = document.getElementById('track-time');
+    const eqBars = document.getElementById('eq-bars');
+    const lyricEn = document.getElementById('lyric-en');
+    const lyricEs = document.getElementById('lyric-es');
+
+    // Synchronized lyrics inside the 25-second fragment (1:04 to 1:29)
+    const lyricsTimeline = [
+      {
+        start: 0,
+        end: 6.2,
+        en: "♪ Such a lonely day, and it's mine... ♪",
+        es: "Sé que hoy parece un día difícil y solitario..."
+      },
+      {
+        start: 6.2,
+        end: 13.0,
+        en: "♪ The most loneliest day of my life... ♪",
+        es: "Pero ánimo, no estés triste: aquí estoy abrazándote ❤️"
+      },
+      {
+        start: 13.0,
+        end: 19.5,
+        en: "♪ Such a lonely day should be banned... ♪",
+        es: "Ninguna tristeza puede más que nuestro amor ✨"
+      },
+      {
+        start: 19.5,
+        end: 26.0,
+        en: "♪ It's a day that I can't stand... ♪",
+        es: "Me tienes a mí hoy y siempre. ¡Te amo muchísimo! 🧸💖"
+      }
+    ];
+
+    function formatClock(sec) {
+      const total = Math.floor(64 + sec); // Offset from 1:04 (64s)
+      const mins = Math.floor(total / 60);
+      const rem = total % 60;
+      return `${mins}:${rem < 10 ? '0' : ''}${rem}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      const current = audio.currentTime || 0;
+      const duration = audio.duration || 25;
+      const pct = Math.min(100, (current / duration) * 100);
+      progressFill.style.width = `${pct}%`;
+      trackTime.textContent = `${formatClock(current)} / 1:29`;
+
+      const activeCue = lyricsTimeline.find(c => current >= c.start && current < c.end);
+      if (activeCue && lyricEn.textContent !== activeCue.en) {
+        lyricEn.textContent = activeCue.en;
+        lyricEs.textContent = activeCue.es;
+      }
+    });
+
+    function updatePlayUI(isPlaying) {
+      if (isPlaying) {
+        iconPause.style.display = 'block';
+        iconPlay.style.display = 'none';
+        eqBars.classList.add('playing');
+      } else {
+        iconPause.style.display = 'none';
+        iconPlay.style.display = 'block';
+        eqBars.classList.remove('playing');
+      }
+    }
+
+    playToggle.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        updatePlayUI(true);
+      } else {
+        audio.pause();
+        updatePlayUI(false);
+      }
+    });
+
+    // Start Experience Button on Intro Curtain
+    const introCurtain = document.getElementById('intro-curtain');
+    const startBtn = document.getElementById('start-btn');
+
+    startIdleBearAnimations();
+
+    startBtn.addEventListener('click', () => {
+      introCurtain.classList.add('hidden');
+      audio.volume = 0.95;
+      audio.currentTime = 0;
+      audio.play().then(() => {
+        updatePlayUI(true);
+      }).catch((err) => {
+        console.warn('Audio play fallback:', err);
+      });
+
+      playEntranceChoreography();
+      spawnHeartBurst(window.innerWidth / 2, window.innerHeight * 0.4, 24);
+    });
+  </script>
+</body>
+</html>
