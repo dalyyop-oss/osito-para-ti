@@ -170,10 +170,24 @@
     .bear-svg {
       width: 100%;
       height: 100%;
-      max-width: 280px;
-      max-height: 295px;
+      max-width: 265px;
+      max-height: 270px;
+      margin-top: 34px;
       overflow: visible;
       filter: drop-shadow(0 16px 32px rgba(10, 2, 6, 0.65));
+    }
+
+    /* Banner of love words above the bear's head (never covers the bear animation) */
+    .bear-head-banner {
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 45;
+      pointer-events: none;
+      width: 96%;
+      display: flex;
+      justify-content: center;
     }
 
     /* Interactive tap hint near bear */
@@ -501,24 +515,33 @@
       gap: 6px;
     }
 
-    /* Floating Pop Words on Tap */
+    /* Floating Pop Words Above the Bear's Head (20 seconds, large & ultra-legible) */
     .pop-love {
-      position: fixed;
-      pointer-events: none;
-      z-index: 50;
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.05rem;
-      color: var(--gold-warm);
-      text-shadow: 0 2px 14px rgba(255, 77, 121, 0.9), 0 0 8px rgba(0, 0, 0, 0.7);
+      display: inline-block;
+      padding: 8px 22px;
+      border-radius: 999px;
+      background: rgba(34, 6, 20, 0.88);
+      border: 1.5px solid rgba(255, 209, 102, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.35rem, 5.6vw, 1.75rem);
+      letter-spacing: 0.02em;
+      color: #FFF9F5;
+      text-shadow: 0 2px 12px rgba(255, 77, 121, 0.95), 0 0 18px rgba(255, 209, 102, 0.55);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 77, 121, 0.4);
       white-space: nowrap;
-      animation: popUpFade 8.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: popUpFade 20s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes popUpFade {
-      0% { opacity: 0; transform: translate(-50%, 6px) scale(0.5); }
-      6% { opacity: 1; transform: translate(-50%, -26px) scale(1.1); }
-      88% { opacity: 1; transform: translate(-50%, -56px) scale(1.04); }
-      100% { opacity: 0; transform: translate(-50%, -84px) scale(0.92); }
+      0% { opacity: 0; transform: translateY(10px) scale(0.75); }
+      3% { opacity: 1; transform: translateY(0px) scale(1.04); }
+      6% { opacity: 1; transform: translateY(0px) scale(1); }
+      93% { opacity: 1; transform: translateY(-2px) scale(1); }
+      100% { opacity: 0; transform: translateY(-12px) scale(0.92); }
     }
   </style>
 </head>
@@ -595,6 +618,7 @@
 
     <!-- Animated Vector Teddy Bear -->
     <div class="bear-showcase" id="bear-touch-area" title="Tócame para enviarte más amor">
+      <div class="bear-head-banner" id="bear-head-banner"></div>
       <div class="bear-halo" id="bear-halo"></div>
 
       <svg class="bear-svg" id="bear-svg" viewBox="0 0 320 340" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1040,23 +1064,29 @@
     }
 
     // Interactive Bear Hug when user taps the bear or screen
-    const sweetPopPhrases = ['¡Te amo! ❤️', 'Aquí estoy contigo 🤗', 'Ánimo mi vida ✨', 'Eres mi todo 💖', 'No estés triste 🧸'];
+    const sweetPopPhrases = ['¡Te amo muchísimo! ❤️', 'Aquí estoy contigo 🤗', 'Ánimo mi vida ✨', 'Eres mi todo 💖', 'No estés triste 🧸'];
     let phraseIdx = 0;
+    let popWordTimer = null;
 
     function triggerBearHug(clientX, clientY) {
       const x = clientX || window.innerWidth / 2;
       const y = clientY || window.innerHeight * 0.35;
       spawnHeartBurst(x, y, 16);
 
-      // Pop floating romantic text (visible for 8 full seconds, then gently fades out)
+      // Show romantic phrase right above the bear's head for 20 full seconds without covering the bear
+      const banner = document.getElementById('bear-head-banner');
+      banner.innerHTML = '';
+      if (popWordTimer) clearTimeout(popWordTimer);
+
       const pop = document.createElement('div');
       pop.className = 'pop-love';
       pop.textContent = sweetPopPhrases[phraseIdx % sweetPopPhrases.length];
       phraseIdx++;
-      pop.style.left = `${x}px`;
-      pop.style.top = `${y}px`;
-      document.body.appendChild(pop);
-      setTimeout(() => pop.remove(), 8500);
+      banner.appendChild(pop);
+
+      popWordTimer = setTimeout(() => {
+        if (pop.parentNode) pop.remove();
+      }, 20000);
 
       // Bear excited hug bounce
       gsap.fromTo('#bear-svg',
